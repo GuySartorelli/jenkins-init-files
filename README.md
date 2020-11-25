@@ -24,4 +24,4 @@ Finally, it will start the Jenkins service.
 ## installPlugins.groovy
 
 - Installs a list of plugins (see [getPluginList.groovy](getpluginlist-groovy)).
-- Sets the 
+- Sets the installed status to `INITIAL_SETUP_COMPLETED` to bypass the setup wizard.

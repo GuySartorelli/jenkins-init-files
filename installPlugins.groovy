@@ -1,6 +1,7 @@
 #!groovy
 
 import jenkins.model.*
+import jenkins.install.InstallState
 import java.util.logging.Logger
 import java.net.SocketTimeoutException
 
@@ -119,8 +120,8 @@ def installPlugin(plugin, name) {
   while(!success && attempts < 3) {
     try {
       attempts++
-      logger.info("Installing " + it)
-        def installFuture = plugin.deploy()
+      logger.info("Installing " + name)
+      def installFuture = plugin.deploy()
       while(!installFuture.isDone() && !installFuture.isCancelled()) {
         sleep(3000)
       }

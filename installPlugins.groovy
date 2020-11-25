@@ -2,6 +2,7 @@
 
 import jenkins.model.*
 import java.util.logging.Logger
+import java.net.SocketTimeoutException
 
 def plugins = [
   "jsch",
@@ -112,6 +113,29 @@ def instance = Jenkins.getInstance()
 def pm = instance.getPluginManager()
 def uc = instance.getUpdateCenter()
 
+def installPlugin(plugin, name) {
+  def attempts = 0
+  def success = false
+  while(!success && attempts < 3) {
+    try {
+      attempts++
+      logger.info("Installing " + it)
+        def installFuture = plugin.deploy()
+      while(!installFuture.isDone() && !installFuture.isCancelled()) {
+        sleep(3000)
+      }
+      success = true
+    } catch(SocketTimeoutException ex) {
+      def retrying = attempts < 3 ? "Retrying." : "Too many attempts."
+      logger.info("Timed out while installing " + name + ". " + retrying
+    }
+  }
+  return installFuture
+}
+
+// Don't show the install plugins screen
+instance.setInstallState(InstallState.INITIAL_SETUP_COMPLETED)
+
 // Get updated plugin information
 uc.updateAllSites()
 
@@ -121,14 +145,10 @@ plugins.each {
     logger.info("Checking UpdateCenter for " + it)
     def plugin = uc.getPlugin(it)
     if (plugin) {
-      logger.info("Installing " + it)
-        def installFuture = plugin.deploy()
-      while(!installFuture.isDone() && !installFuture.isCancelled()) {
-        sleep(3000)
-      }
+      def installFuture = installPlugin(plugin, it)
       def job = installFuture.get()
       if (job.getErrorMessage()) {
-        logger.error(job.getErrorMessage())
+        logger.severe(job.getErrorMessage())
       } else {
         logger.info(it + " installed.")
       }

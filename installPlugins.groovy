@@ -136,7 +136,7 @@ def uc = instance.getUpdateCenter()
 
 // Don't show the install plugins screen
 def state = instance.getInstallState()
-if (state == InstallState.NEW || state == INITIAL_PLUGINS_INSTALLING) {
+if (state == InstallState.NEW || state == InstallState.INITIAL_PLUGINS_INSTALLING) {
   instance.setInstallState(InstallState.INITIAL_SETUP_COMPLETED)
 }
 

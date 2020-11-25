@@ -69,7 +69,6 @@ def plugins = [
   "pipeline-input-step",
   "pipeline-milestone-step",
   "pipeline-model-api",
-  "pipeline-model-declarative-agent",
   "pipeline-model-definition",
   "pipeline-model-extensions",
   "pipeline-rest-api",

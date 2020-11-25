@@ -114,11 +114,12 @@ def plugins = [
 def installPlugin(plugin, name, logger) {
   def attempts = 0
   def success = false
+  def installFuture = null
   while(!success && attempts < 3) {
     try {
       attempts++
       logger.info("Installing " + name)
-      def installFuture = plugin.deploy()
+      installFuture = plugin.deploy()
       while(!installFuture.isDone() && !installFuture.isCancelled()) {
         sleep(3000)
       }

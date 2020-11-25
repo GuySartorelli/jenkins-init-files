@@ -127,7 +127,7 @@ def installPlugin(plugin, name) {
       success = true
     } catch(SocketTimeoutException ex) {
       def retrying = attempts < 3 ? "Retrying." : "Too many attempts."
-      logger.info("Timed out while installing " + name + ". " + retrying
+      logger.info("Timed out while installing " + name + ". " + retrying)
     }
   }
   return installFuture

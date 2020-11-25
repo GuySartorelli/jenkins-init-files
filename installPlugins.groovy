@@ -5,6 +5,8 @@ import jenkins.install.InstallState
 import java.util.logging.Logger
 import java.net.SocketTimeoutException
 
+def logger = Logger.getLogger("")
+
 def plugins = [
   "jsch",
   "ws-cleanup",
@@ -129,7 +131,6 @@ def installPlugin(plugin, name) {
   return installFuture
 }
 
-def logger = Logger.getLogger("")
 def instance = Jenkins.get()
 def pm = instance.getPluginManager()
 def uc = instance.getUpdateCenter()

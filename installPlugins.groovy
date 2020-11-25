@@ -111,7 +111,7 @@ def plugins = [
   "nvm-wrapper"
 ]
 
-def installPlugin(plugin, name) {
+def installPlugin(plugin, name, logger) {
   def attempts = 0
   def success = false
   while(!success && attempts < 3) {
@@ -150,7 +150,7 @@ plugins.each {
     logger.info("Checking UpdateCenter for " + it)
     def plugin = uc.getPlugin(it)
     if (plugin) {
-      def installFuture = installPlugin(plugin, it)
+      def installFuture = installPlugin(plugin, it, logger)
       def job = installFuture.get()
       if (job.getErrorMessage()) {
         logger.severe(job.getErrorMessage())

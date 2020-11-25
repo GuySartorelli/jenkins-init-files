@@ -109,11 +109,6 @@ def plugins = [
   "nvm-wrapper"
 ]
 
-def logger = Logger.getLogger("")
-def instance = Jenkins.getInstance()
-def pm = instance.getPluginManager()
-def uc = instance.getUpdateCenter()
-
 def installPlugin(plugin, name) {
   def attempts = 0
   def success = false
@@ -134,8 +129,16 @@ def installPlugin(plugin, name) {
   return installFuture
 }
 
+def logger = Logger.getLogger("")
+def instance = Jenkins.get()
+def pm = instance.getPluginManager()
+def uc = instance.getUpdateCenter()
+
 // Don't show the install plugins screen
-instance.setInstallState(InstallState.INITIAL_SETUP_COMPLETED)
+def state = instance.getInstallState()
+if (state == InstallState.NEW || state == INITIAL_PLUGINS_INSTALLING) {
+  instance.setInstallState(InstallState.INITIAL_SETUP_COMPLETED)
+}
 
 // Get updated plugin information
 uc.updateAllSites()

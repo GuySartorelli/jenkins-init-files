@@ -13,8 +13,6 @@ new_java_options='$old_java_options -Djenkins.install.runSetupWizard=false'
 sed -i 's/$old_java_options/$new_java_options/' /etc/sysconfig/jenkins
 # Set port
 #sed -i 's/JENKINS_PORT="8080"/JENKINS_PORT="80"/' /etc/sysconfig/jenkins
-# Allow users to read the config file (for debugging)
-chmod +r /etc/sysconfig/jenkins
 
 # Get groovy scripts
 groovydir=/var/lib/jenkins/init.groovy.d

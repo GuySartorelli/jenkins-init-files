@@ -1,3 +1,5 @@
+_important note: The paths used in these scripts assume a redhat installation_
+
 This is a set of useful scripts for setting up a Jenkins installation on AWS and migrating some level of configuration from an existing server.
 
 To check the progress of setup, run `tail -f /var/log/jenkins/jenkins.log` on the new Jenkins instance.

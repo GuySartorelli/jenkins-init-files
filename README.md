@@ -12,15 +12,16 @@ This will remove the below scripts, ensuring they are not re-run if the Jenkins 
 
 ## userdata.sh
 
-In the AWS EC2 instance setup use the following command as the userdata:
+In the AWS EC2 instance setup use the following command as the userdata (with SCRIPT_SOURCE set to the appropriate location - it may not necessarily be from _this_ repository):
 
 ```bash
+SCRIPT_SOURCE=https://raw.githubusercontent.com/GuySartorelli/jenkins-init-files/master
 wget -O /tmp/userdata.sh \
-    https://raw.githubusercontent.com/GuySartorelli/jenkins-init-files/master/userdata.sh
+    $SCRIPT_SOURCE/userdata.sh
 chmod 744 /tmp/userdata.sh
-/tmp/userdata.sh
+/tmp/userdata.sh $SCRIPT_SOURCE
 ```
-(note: If you want to set a specific incoming http port, the last line should be `/tmp/userdata.sh $PORT` where `$PORT` is the port number you want to set. The default will be 8080.)
+(note: If you want to set a specific incoming http port, the last line should be `/tmp/userdata.sh $SCRIPT_SOURCE $PORT` where `$PORT` is the port number you want to set. The default will be 8080.)
 
 This will install jenkins and any dependencies it has, including optionally setting a port for HTTP traffic.
 

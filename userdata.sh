@@ -1,6 +1,7 @@
 #!/bin/bash
 
-HTTP_PORT=$1
+SCRIPT_SOURCE=$1
+HTTP_PORT=$2
 
 # Install jenkins
 wget -O /etc/yum.repos.d/jenkins.repo \
@@ -21,10 +22,8 @@ fi
 # Get groovy scripts
 groovydir=/var/lib/jenkins/init.groovy.d
 mkdir $groovydir
-wget -O $groovydir/installPlugins.groovy \
-    https://raw.githubusercontent.com/GuySartorelli/jenkins-init-files/master/installPlugins.groovy
-wget -O $groovydir/security.groovy \
-    https://raw.githubusercontent.com/GuySartorelli/jenkins-init-files/master/security.groovy
+wget -O $groovydir/installPlugins.groovy $SCRIPT_SOURCE/installPlugins.groovy
+wget -O $groovydir/security.groovy $SCRIPT_SOURCE/security.groovy
 chown -R jenkins:jenkins $groovydir
 chmod -R 755 $groovydir
 

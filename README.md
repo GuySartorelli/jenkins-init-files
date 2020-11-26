@@ -10,7 +10,17 @@ This will remove the below scripts, ensuring they are not re-run if the Jenkins 
 
 ## userdata.sh
 
-The userdata.sh file should be passed as user data into the EC2 instance on creation. This will install jenkins and any dependencies it has, including optionally setting a port for HTTP traffic.
+In the AWS EC2 instance setup use the following command as the userdata:
+
+```bash
+wget -O /tmp/userdata.sh \
+    https://raw.githubusercontent.com/GuySartorelli/jenkins-init-files/master/userdata.sh
+chmod 744 /tmp/userdata.sh
+/tmp/userdata.sh
+```
+(note: If you want to set a specific incoming http port, the last line should be `/tmp/userdata.sh $PORT` where `$PORT` is the port number you want to set. The default will be 8080.)
+
+This will install jenkins and any dependencies it has, including optionally setting a port for HTTP traffic.
 
 It will then fetch the `security.groovy` and `installPlugins.groovy` scripts from this repository and put them into `/var/lib/jenkins/init.groovy.d` to be executed when the Jenkins service starts.
 
@@ -34,6 +44,8 @@ As mentioned in the file itself, paste this script into `/script` (e.g. http://j
 ## migrate-jobs.sh
 
 Migrates existing jobs from one Jenkins server to another.
+
+You may need to [set a static port for JNLP](https://wiki.jenkins.io/display/JENKINS/Jenkins+CLI#JenkinsCLI-ConfiguringTCP/IPportforCLIandagents.) and allow this port in your AWS user group for the Jenkins instance.
 
 Dependencies:
 - Admin credentials for both servers

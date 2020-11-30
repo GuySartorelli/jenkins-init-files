@@ -15,6 +15,7 @@ This will remove the below scripts, ensuring they are not re-run if the Jenkins 
 In the AWS EC2 instance setup use the following command as the userdata (with SCRIPT_SOURCE set to the appropriate location - it may not necessarily be from _this_ repository):
 
 ```bash
+#!/bin/bash
 SCRIPT_SOURCE=https://raw.githubusercontent.com/GuySartorelli/jenkins-init-files/master
 wget -O /tmp/userdata.sh \
     $SCRIPT_SOURCE/userdata.sh

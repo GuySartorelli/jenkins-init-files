@@ -17,8 +17,7 @@ In the AWS EC2 instance setup use the following command as the userdata (with SC
 ```bash
 #!/bin/bash
 SCRIPT_SOURCE=https://raw.githubusercontent.com/GuySartorelli/jenkins-init-files/master
-wget -O /tmp/userdata.sh \
-    $SCRIPT_SOURCE/userdata.sh
+wget -O /tmp/userdata.sh $SCRIPT_SOURCE/userdata.sh
 chmod 744 /tmp/userdata.sh
 /tmp/userdata.sh $SCRIPT_SOURCE
 ```

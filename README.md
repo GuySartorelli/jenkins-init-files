@@ -1,4 +1,4 @@
-_important note: The paths used in these scripts assume a redhat installation_
+_important note: The paths and some of the strings used in these scripts assume a redhat installation_
 
 This is a set of useful scripts for setting up a Jenkins installation on AWS and migrating some level of configuration from an existing server.
 

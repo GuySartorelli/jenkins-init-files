@@ -12,14 +12,14 @@ yum install jenkins java-1.8.0-openjdk-devel -y
 
 # Disable setup wizard
 old_java_options='JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true'
-new_java_options='$old_java_options -Djenkins.install.runSetupWizard=false'
-sed -i 's/$old_java_options/$new_java_options/' /etc/sysconfig/jenkins
+new_java_options="$old_java_options -Djenkins.install.runSetupWizard=false"
+sed -i "s/$old_java_options/$new_java_options/" /etc/sysconfig/jenkins
 # Set port if passed in
 if [[ ! -z $HTTP_PORT ]]; then
   if [[ $HTTP_PORT = 80 ]]; then
     iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080
   else
-    sed -i 's/JENKINS_PORT="8080"/JENKINS_PORT="$HTTP_PORT"/' /etc/sysconfig/jenkins
+    sed -i "s/JENKINS_PORT=\"8080\"/JENKINS_PORT=\"$HTTP_PORT\"/" /etc/sysconfig/jenkins
   fi
 fi
 

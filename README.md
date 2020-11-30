@@ -2,11 +2,11 @@ _important note: The paths and some of the strings used in these scripts assume 
 
 This is a set of useful scripts for setting up a Jenkins installation on AWS and migrating some level of configuration from an existing server.
 
-To check the progress of setup, run `tail -f /var/log/jenkins/jenkins.log` on the new Jenkins instance.
+To check the progress of setup, run `sudo tail -f /var/log/jenkins/jenkins.log` on the new Jenkins instance.
 
 After the setup has completed, the following needs to be manually run on the jenkins instance:
 ```bash
-rm -r /var/lib/jenkins/init.groovy.d
+sudo rm -r /var/lib/jenkins/init.groovy.d
 ```
 This will remove the below scripts, ensuring they are not re-run if the Jenkins service is restarted - which means you won't get an errouneous admin user setup in the future, or have plugins installed that you intentionally manually uninstalled.
 

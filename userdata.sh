@@ -47,7 +47,7 @@ tar -xf /tmp/ruby-install/*.tar.gz -C /tmp/ruby-install/
 /tmp/ruby-install/ruby-install-0.8.1/bin/ruby-install ruby 3
 echo 'export PATH="~/.rubies/ruby-3.0.0/bin:$PATH"' >> /etc/profile && source /etc/profile
 gem install cocoapods
-sudo rm -r /tmp/ruby-install/
+rm -r /tmp/ruby-install/
 
 #install jenkins
 wget -O /etc/yum.repos.d/jenkins.repo \

@@ -7,8 +7,8 @@ HTTP_PORT=$2
 yum upgrade -y
 yum install java-1.8.0-openjdk-devel -y
 # set JAVA_HOME env variable and add java to path
-echo "export JAVA_HOME=$(dirname $(dirname $(readlink $(readlink $(which java)))))" >> ~/.bash_profile
-echo "export JRE_HOME=$JAVA_HOME" >> ~/.bash_profile && source ~/.bash_profile
+echo "export JAVA_HOME=$(dirname $(dirname $(readlink $(readlink $(which java)))))" >> /etc/profile
+echo "export JRE_HOME=$JAVA_HOME" >> /etc/profile && source /etc/profile
 
 # Install job dependencies
 # install git, unzip
@@ -26,7 +26,7 @@ npm install -g @angular/cli@9
 wget https://services.gradle.org/distributions/gradle-6.3-bin.zip -P /tmp
 unzip -d /opt/gradle /tmp/gradle-*.zip
 rm -r /tmp/gradle-*.zip
-printf "export GRADLE_HOME=/opt/gradle/gradle-6.3\nexport PATH=\x24{GRADLE_HOME}/bin:\x24{PATH}" >> ~/.bash_profile && source ~/.bash_profile
+printf "export GRADLE_HOME=/opt/gradle/gradle-6.3\nexport PATH=\x24{GRADLE_HOME}/bin:\x24{PATH}" >> /etc/profile && source /etc/profile
 # install elastic beanstalk
 yum group install "Development Tools" -y
 yum install \
@@ -35,17 +35,17 @@ yum install \
 git clone https://github.com/aws/aws-elastic-beanstalk-cli-setup.git /tmp/elastic-beanstalk
 /tmp/elastic-beanstalk/scripts/bundled_installer
 rm -r /tmp/elastic-beanstalk
-echo 'export PATH="~/.ebcli-virtual-env/executables:$PATH"' >> ~/.bash_profile && source ~/.bash_profile
+echo 'export PATH="~/.ebcli-virtual-env/executables:$PATH"' >> /etc/profile && source /etc/profile
 # install andriod studio
 wget https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip -P /tmp/android-studio
 unzip -d /opt/android-sdk /tmp/android-studio/*.zip
 rm -r /tmp/android-studio
-echo "export PATH=/opt/android-sdk/cmdline-tools/bin:\$PATH" >> ~/.bash_profile
+echo "export PATH=/opt/android-sdk/cmdline-tools/bin:\$PATH" >> /etc/profile
 # install gem and cocoapods via ruby
 wget https://github.com/postmodern/ruby-install/archive/v0.8.1.tar.gz -P /tmp/ruby-install
 tar -xf /tmp/ruby-install/*.tar.gz -C /tmp/ruby-install/
 /tmp/ruby-install/ruby-install-0.8.1/bin/ruby-install ruby 3
-echo 'export PATH="~/.rubies/ruby-3.0.0/bin:$PATH"' >> ~/.bash_profile && source ~/.bash_profile
+echo 'export PATH="~/.rubies/ruby-3.0.0/bin:$PATH"' >> /etc/profile && source /etc/profile
 gem install cocoapods
 sudo rm -r /tmp/ruby-install/
 

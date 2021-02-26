@@ -3,12 +3,9 @@
 SCRIPT_SOURCE=$1
 HTTP_PORT=$2
 
-# Install java and jenkins
-wget -O /etc/yum.repos.d/jenkins.repo \
-    https://pkg.jenkins.io/redhat-stable/jenkins.repo
-rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+# Install java
 yum upgrade -y
-yum install jenkins java-1.8.0-openjdk-devel -y
+yum install java-1.8.0-openjdk-devel -y
 # set JAVA_HOME env variable and add java to path
 echo "export JAVA_HOME=$(dirname $(dirname $(readlink $(readlink $(which java)))))" >> ~/.bash_profile
 echo "export JRE_HOME=$JAVA_HOME" >> ~/.bash_profile && source ~/.bash_profile
@@ -52,6 +49,12 @@ echo 'export PATH="~/.rubies/ruby-3.0.0/bin:$PATH"' >> ~/.bash_profile && source
 gem install cocoapods
 sudo rm -r /tmp/ruby-install/
 
+#install jenkins
+wget -O /etc/yum.repos.d/jenkins.repo \
+    https://pkg.jenkins.io/redhat-stable/jenkins.repo
+rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+yum upgrade -y
+yum install jenkins -y
 
 # Disable jenkins setup wizard
 old_java_options='JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true'
